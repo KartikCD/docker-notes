@@ -151,6 +151,22 @@ Lets assume we run a docker mongodb container and want to connect to that contai
 
 > [Network Requests cheat sheet](./assets/Cheat-Sheet-Networks-Requests.pdf)
 
+### Running full-example project steps
+
+```
+// First create a network
+$ docker network create goals
+
+// Run a mongodb service
+$ docker run --name mongodb --rm -d --network goals -v data:/data/db mongo
+
+// Run a backend container
+$ docker run --name goals-node --rm -p 80:80 -d -v "$(pwd)":/app -v goals-data:/app/logs -v /app/node_modules  --network goals goals-node
+
+// Run react project
+$ docker run --name goals-react --rm -p 3000:3000 -v ${pwd}:/app/src -v /app/node_modules -d -it goals-react
+```
+
 
 
 
