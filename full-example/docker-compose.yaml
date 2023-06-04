@@ -1,0 +1,44 @@
+version: '1.0.0'
+services:
+  mongodb:
+    image: "mongo"
+    volumes:
+      - data:/data/db
+    # environment:
+      # - USERNAME=ABC
+      # USERNAME:ABC
+    # env_file:
+      # - ./env/mongo.env
+  backend:
+    build: ./backend
+    # build:
+    #   context: ./backend
+    #   dockerfile: Dockerfile
+    #   args:
+    #     some-arg:1
+    ports:
+      - 80:80
+    volumes:
+      - logs:/app/logs
+      - ./backend:/app # This is for bind mounts. This accepts relative path.
+      - /app/node_modules
+    depends_on:
+      - "mongodb"
+  frontend:
+    build: ./frontend
+    ports:
+      - 3000:3000
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+
+    # For interactive Mode
+    stdin_open: true
+    tty: true
+    depends_on:
+      - "backend"
+
+volumes:
+  data:
+  logs:
+   

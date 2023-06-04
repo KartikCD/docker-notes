@@ -167,6 +167,16 @@ $ docker run --name goals-node --rm -p 80:80 -d -v "$(pwd)":/app -v goals-data:/
 $ docker run --name goals-react --rm -p 3000:3000 -v ${pwd}:/app/src -v /app/node_modules -d -it goals-react
 ```
 
+# Docker Compose
+
+Docker compose work with DockerFile to run a container. 
+Docker compose does not replace dockerfiles for custom images. Docker compose does not replaces images of container. Docker compose is NOT Suited for managing multiple containers on different hosts (machines.)
+
+Docker compose use is by writing docker-compose file.
+
+> One doesn't need to specify network because docker will automatically create a new environment for all the services specified in the compose file. and it will add services to a network out of the box.
+
+
 
 
 
